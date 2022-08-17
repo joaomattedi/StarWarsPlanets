@@ -16,11 +16,13 @@ export default function MultiFilters() {
     'surface_water',
   ];
 
-  const comparisonFilter = [
-    'maior que',
-    'menor que',
-    'igual a',
-  ];
+  const comparisonFilter = ['maior que', 'menor que', 'igual a'];
+
+  const dynamicColumns = columnFilter.filter(
+    (column) => !filterByNumericValues.some(
+      (filterContext) => filterContext.column === column,
+    ),
+  );
 
   return (
     <div>
@@ -30,11 +32,8 @@ export default function MultiFilters() {
         onChange={ (e) => setFilter({ ...filter, column: e.target.value }) }
         data-testid="column-filter"
       >
-        {columnFilter.map((element) => (
-          <option
-            key={ element }
-            value={ element }
-          >
+        {dynamicColumns.map((element) => (
+          <option key={ element } value={ element }>
             {element}
           </option>
         ))}
@@ -45,8 +44,10 @@ export default function MultiFilters() {
         onChange={ (e) => setFilter({ ...filter, comparison: e.target.value }) }
         data-testid="comparison-filter"
       >
-        {comparisonFilter.map((element) => (
-          <option key={ element } value={ element }>{element}</option>
+        {comparisonFilter.map((element, index) => (
+          <option key={ index } value={ element }>
+            {element}
+          </option>
         ))}
       </select>
       <input
