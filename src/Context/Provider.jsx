@@ -6,6 +6,7 @@ import Context from './Context';
 export default function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [name, setName] = useState('');
+  const [filterByNumericValues, setFilterByNumeric] = useState([]);
   useEffect(() => {
     fetchPlanets().then((data) => setPlanets(data.results));
   }, []);
@@ -16,6 +17,8 @@ export default function Provider({ children }) {
       name,
     },
     setName,
+    filterByNumericValues,
+    setFilterByNumeric,
   };
 
   return <Context.Provider value={ context }>{children}</Context.Provider>;
