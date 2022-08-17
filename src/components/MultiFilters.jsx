@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Context from '../Context/Context';
 
 export default function MultiFilters() {
@@ -24,6 +24,11 @@ export default function MultiFilters() {
     ),
   );
 
+  useEffect(
+    () => setFilter({ ...filter, column: dynamicColumns[0] }),
+    [filterByNumericValues],
+  );
+
   return (
     <div>
       <select
@@ -31,6 +36,7 @@ export default function MultiFilters() {
         id="column"
         onChange={ (e) => setFilter({ ...filter, column: e.target.value }) }
         data-testid="column-filter"
+        value={ filter.column }
       >
         {dynamicColumns.map((element) => (
           <option key={ element } value={ element }>
@@ -43,6 +49,7 @@ export default function MultiFilters() {
         id="comparison"
         onChange={ (e) => setFilter({ ...filter, comparison: e.target.value }) }
         data-testid="comparison-filter"
+        value={ filter.comparison }
       >
         {comparisonFilter.map((element, index) => (
           <option key={ index } value={ element }>
