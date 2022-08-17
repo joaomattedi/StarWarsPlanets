@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import Context from '../Context/Context';
 
 export default function TableBody() {
-  const { planets } = useContext(Context);
+  const { planets, filterByName: { name } } = useContext(Context);
+  const re = new RegExp(name, 'gi');
+  const filterName = planets.filter((element) => element.name.match(re));
   return (
     <tbody>
-      {planets.map((element) => (
+      {filterName.map((element) => (
         <tr key={ element.name }>
           <td>{element.name}</td>
           <td>{element.rotation_period}</td>
