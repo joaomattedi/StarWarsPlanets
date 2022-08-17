@@ -7,6 +7,7 @@ export default function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [name, setName] = useState('');
   const [filterByNumericValues, setFilterByNumeric] = useState([]);
+
   useEffect(() => {
     fetchPlanets().then((data) => setPlanets(data.results));
   }, []);

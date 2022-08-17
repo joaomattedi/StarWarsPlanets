@@ -2,9 +2,19 @@ import React, { useContext } from 'react';
 import Context from '../Context/Context';
 
 export default function TableBody() {
-  const { planets, filterByName: { name } } = useContext(Context);
+  const { planets, filterByName: { name }, filterByNumericValues } = useContext(Context);
   const re = new RegExp(name, 'gi');
-  const filterName = planets.filter((element) => element.name.match(re));
+  const filterName = planets
+    .filter((planet) => planet.name.match(re))
+    .filter((planet) => filterByNumericValues.every((filter) => {
+      if (filter.comparison === 'maior que') {
+        return +planet[filter.column] > +filter.value;
+      }
+      if (filter.comparison === 'menor que') {
+        return +planet[filter.column] < +filter.value;
+      }
+      return +planet[filter.column] === +filter.value;
+    }));
   return (
     <tbody>
       {filterName.map((element) => (
