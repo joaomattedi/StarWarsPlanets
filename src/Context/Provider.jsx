@@ -7,6 +7,7 @@ export default function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [name, setName] = useState('');
   const [filterByNumericValues, setFilterByNumeric] = useState([]);
+  const [order, setOrder] = useState({});
 
   useEffect(() => {
     fetchPlanets().then((data) => setPlanets(data.results));
@@ -20,6 +21,8 @@ export default function Provider({ children }) {
     setName,
     filterByNumericValues,
     setFilterByNumeric,
+    order,
+    setOrder,
   };
 
   return <Context.Provider value={ context }>{children}</Context.Provider>;

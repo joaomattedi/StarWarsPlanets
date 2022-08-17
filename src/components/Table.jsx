@@ -3,6 +3,7 @@ import ActiveFilters from './ActiveFilters';
 import InputName from './InputName';
 import MultiFilters from './MultiFilters';
 import RemoveFilters from './RemoveFilters';
+import Sort from './Sort';
 import TableBody from './TableBody';
 import TableHead from './TableHead';
 
@@ -13,6 +14,7 @@ export default function Table() {
       <MultiFilters />
       <ActiveFilters />
       <RemoveFilters />
+      <Sort />
       <table>
         <TableHead />
         <TableBody />
