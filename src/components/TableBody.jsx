@@ -23,15 +23,19 @@ export default function TableBody() {
 
   const sorted = Object.keys(order).length === 0
     ? filterName
-    : filterName.sort((a, b) => {
-      if (order.sort === 'ASC') {
-        if (Number.isNaN(a[order.column] - b[order.column])) {
+    : filterName
+      .sort((a) => {
+        if (a[order.column].toString() === 'unknown') {
           return 1;
         }
-        return a[order.column] - b[order.column];
-      }
-      return b[order.column] - a[order.column];
-    });
+        return +'-1';
+      })
+      .sort((a, b) => {
+        if (order.sort === 'ASC') {
+          return a[order.column] - b[order.column];
+        }
+        return b[order.column] - a[order.column];
+      });
   return (
     <tbody>
       {sorted.map((element) => (
