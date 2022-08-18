@@ -25,7 +25,7 @@ export default function MultiFilters() {
   );
 
   useEffect(
-    () => setFilter({ ...filter, column: dynamicColumns[0] }),
+    () => setFilter({ ...filter, column: dynamicColumns[0], value: '0' }),
     [filterByNumericValues],
   );
 
