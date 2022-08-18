@@ -60,9 +60,31 @@ describe('first', () => {
     const planets = screen.getAllByTestId('planet-name')
     expect(planets).toHaveLength(1)
   })
-  test('',async () => {
-    render(<App />)
-    await waitFor(() => expect(fetch).toHaveBeenCalled())
-    
+  test('', async ()=>{
+    render(<App />);
+
+    await waitFor(() => expect(fetch).toHaveBeenCalled() );
+
+    const ascendenteButton = screen.getByRole('radio', {  name: /asc/i});
+    const decrescenteBtn = screen.getByRole('radio', {  name: /dsc/i});
+    const orderBtn = screen.getByRole('button', {  name: /ordenar/i});
+    userEvent.click(ascendenteButton)
+    userEvent.click(orderBtn)
+    const ascPlanetNames = await screen.findAllByTestId('planet-name')
+    expect(ascPlanetNames[3]).toHaveTextContent(/endor/i)
+    userEvent.click(decrescenteBtn)
+    userEvent.click(orderBtn)
+    const dscPlanetNames = await screen.findAllByTestId('planet-name')
+    expect(dscPlanetNames[4]).toHaveTextContent(/endor/i)
+  })
+
+  test('', async ()=>{
+    render(<App />);
+
+    await waitFor(() => expect(fetch).toHaveBeenCalled() );
+
+    const sortColumn = screen.getByTestId('column-sort')
+    userEvent.selectOptions(sortColumn, ['diameter'])
+    expect(sortColumn).toHaveProperty('value', 'diameter');
   })
 })
